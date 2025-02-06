@@ -1,0 +1,451 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Check</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Raleway:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/icon1.png' %}" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>The Weather Buddy 
+            <span>Know Before You Go</span>
+        </h1>
+        </header>
+
+        <!-- Search Form -->
+        <section class="search-box">
+            <form action="{% url 'get-weather' %}" method="get">
+                {% csrf_token %}
+                <input type="text" class="input-search" name="nawres" placeholder="Enter city name" required>
+                <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
+            </form>
+        </section>
+        
+
+
+
+        <!-- Weather Information -->
+        {% if main_temp %}
+        <section class="weather-info">
+            <h2>Weather in {{ region }}, {{ country }} <i class="fa-solid fa-location-dot"></i></h2>
+            <p class="temperature">Current Temperature: <strong>{{ main_temp }}℃</strong></p>
+            
+            <!-- Weather Details -->
+            <div class="weather-cards">
+                <div class="card">
+                    <h3>Min Temp</h3>
+                    <span><i class="fa-solid fa-temperature-empty"></i> {{ min_temp }}℃</span>
+                </div>
+                <div class="card">
+                    <h3>Max Temp</h3>
+                    <span><i class="fa-solid fa-temperature-full"></i> {{ max_temp }}℃</span>
+                </div>
+                <div class="card">
+                    <h3>Wind Speed</h3>
+                    <span><i class="fa-solid fa-wind"></i> {{ wind }} m/s</span>
+                </div>
+                <div class="card">
+                    <h3>Updated Time</h3>
+                    <span><i class="fa-regular fa-clock"></i> {{ updated_time }}</span>
+                </div>
+            </div>
+
+
+        </section>
+        {% else %}
+        <section class="no-data">
+            <p>Please enter a city name to check the weather.</p>
+        </section>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+<footer>
+    <p>
+          Created with <i class="fa fa-heart"></i> by
+          <a target="_blank" href="https://dulcet-pony-aedfcc.netlify.app/">Naoures Hamrouni</a>
+      Follow me : 
+        <a target="_blank"  href="https://www.instagram.com/nawres.hamrouni/"><i class="fab fa-instagram"></i></a>
+      <a target="_blank"  href="https://www.linkedin.com/in/nawres-hamrouni-3712a7194/"><i class="fab fa-linkedin"></i></a>
+          <a target="_blank" href="https://dulcet-pony-aedfcc.netlify.app/"><i class="fab fa-dev"></i></a> 
+      </p>
+  </footer>
+
+</html>
+
+
+<style>
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adds space between input and button */
+}
+
+.input {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+}
+
+.btn1 {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn1:hover {
+    background-color: #0056b3;
+}
+
+.btn1 i {
+    margin-right: 5px;
+}
+
+
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body Styling */
+body {
+    height: 100vh;
+    body {background: red; }
+
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Container */
+.container {
+    width: 60%;
+    max-width: 600px;
+    height: 500px; 
+
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Section */
+.header h1 {
+    text-align: center;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: #0d0272;
+    letter-spacing: 1px;
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+}
+
+/* Subtitle Styling */
+.header h1 span {
+    margin-top: 10px; /* Space above the subtitle */
+    font-size: 18px; /* Slightly larger subtitle font */
+    color: #555; /* Softer gray for the subtitle */
+    word-spacing: 2px; /* Increase spacing between words */
+    font-weight: 500; /* Slightly bolder subtitle */
+    text-transform: uppercase; /* Convert text to uppercase */
+    font-family: "Raleway", sans-serif; /* Clean sans-serif font */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align subtitle content */
+    justify-content: center; /* Center horizontally */
+    position: relative; /* Allows pseudo-elements to align */
+ }
+
+/* Horizontal Lines on Each Side */
+.header h1 span:after,
+.header h1 span:before {
+    content: "";
+    display: block;
+    width: 50px; /* Length of the lines */
+    height: 1px; /* Thickness of the lines */
+    background: #ccc; /* Line color */
+    margin: 0 15px; /* Space between the line and subtitle */
+}
+
+
+
+
+
+/* Search Form */
+.search {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #0e0b0b;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #053f7c;
+    color: rgb(10, 8, 8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Weather Information Section */
+.weather-info {
+    text-align: center;
+    margin: 30px auto; 
+
+}
+
+.weather-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Temperature Display */
+.temperature {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #04115e;
+}
+
+/* Card Layout for Details */
+.weather-cards {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.card {
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.card span {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .weather-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        width: 80%;
+    }
+}
+
+/*search bar */ 
+
+*{
+  box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: #130f40;
+    font-family: 'Lato', sans-serif;
+}
+.search-box{
+    position: relative;
+    display: flex; /* Ensures button and input align in a single row */
+    justify-content: center;
+    align-items: center;
+    width: 350px; /* Set a fixed width for the box */
+}
+.input-search{
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  background-color: #1316b400;
+  padding-right: 40px;
+  color:#0e0c0c;
+}
+.input-search::placeholder{
+  color:rgba(17, 7, 7, 0.5);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.btn-search{
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    right: 10px; /* Adjust spacing from the input field's right edge */
+    transform: translateY(-50%); /* Correct vertical centering */
+    color: #ffffff;
+    background-color: #130f40; /* Match button color */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon inside the button */
+    pointer-events: painted;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.btn-search:focus ~ .input-search{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.input-search:focus{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.btn-search:hover {
+    background-color: #1e90ff;
+}
+
+
+/*  footer   */
+footer {
+    background-color: #010d77;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+footer p {
+    margin: 10px 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida  Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+footer .fa-heart{
+    color: red;
+}
+footer .fa-dev{
+    color: #ececec;
+}
+
+footer .fa-instagram{
+  color: #f0007c;
+}
+fotter .fa-linkedin{
+  color:#0073b1;
+}
+footer .fa-codepen{
+  color:#fff
+}
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+  margin-right:5px;
+}
+
+
+/* footer  */
+/* No Data Section */
+.no-data {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    text-align: center; /* Center text alignment */
+    padding: 20px; /* Add some spacing inside the section */
+    margin: 20px auto; /* Center the section itself */
+    width: 80%; /* Limit the width of the message */
+    max-width: 600px; /* Ensure it doesn't get too wide */
+    border: 2px dashed #22a6b3; /* Add a dashed border for emphasis */
+    border-radius: 10px; /* Rounded corners */
+    background-color: rgba(34, 166, 179, 0.1); /* Light transparent background for a subtle highlight */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: 'Lato', sans-serif; /* Modern, clean font */
+    font-size: 18px; /* Readable text size */
+    color: #444; /* Neutral dark gray color */
+}
+
+/* Optional Styling for the Message Text */
+.no-data p {
+    margin: 0; /* Remove default margin */
+    font-size: 20px; /* Slightly larger font */
+    font-weight: 500; /* Medium weight for emphasis */
+    color: #22a6b3; /* Match the theme color */
+    line-height: 1.5; /* Improve text readability */
+}
+
+
+</style>
