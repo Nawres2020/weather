@@ -1,4 +1,5 @@
-#Weather Buddy 🌤️ 
+# Weather Buddy 🌤️  
+
 Weather Buddy is a user-friendly Django-based weather application that allows users to check real-time weather conditions for any city worldwide. 
 
 
@@ -12,7 +13,7 @@ Weather Buddy is a user-friendly Django-based weather application that allows us
 🕒 Last Updated Time
 
 
-#Getting Started 🚀
+# Getting Started 🚀
 1/Create a Virtual Environment
 Navigate to the project directory and create a virtual environment.
 
@@ -51,7 +52,7 @@ Start the development server to view your project in a browser:
 
 ![image](https://github.com/user-attachments/assets/1a572f5d-7f93-492b-9c45-b9a9c3868485)
 
-#Security Notes 🔐
+# Security Notes 🔐
 1/ How to Generate a Secure Key?
 in your terminal : 
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
@@ -64,7 +65,7 @@ python -c "from django.core.management.utils import get_random_secret_key; print
 
 ![image](https://github.com/user-attachments/assets/32439387-10be-4d44-87ed-530d5090f92b)
 
-#API Integration: OpenWeatherMap
+# API Integration: OpenWeatherMap
 This project uses the OpenWeatherMap API to fetch real-time weather data for cities worldwide. The data includes details such as current temperature, minimum and maximum temperatures, wind speed, and the last updated time.
 
 API Endpoint
@@ -80,7 +81,7 @@ appid: Your unique API key for authentication.
 units (Optional): The units of measurement (e.g., units=metric for Celsius).
 
 
-#Application Workflow 🌟
+# Application Workflow 🌟
 
 
 🏠 Homepage Features
